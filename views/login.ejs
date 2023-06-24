@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .contact-us{
+    width: 80%;
+    margin: auto;
+}
+        .contact-col{
+    flex-basis: 48%;
+    margin-bottom: 30px;
+}
+.heading h1{
+  display: flex;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 600;
+    font-family: system-ui;
+}
+
+
+.contact-col input{
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 17px;
+    outline: none;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 14px;
+}
+.hero-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: rgb(225, 38, 38);
+    border: 1px solid rgb(225, 38, 38);
+    padding: 12px 34px;
+    font-size: 13px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+    border-radius: 14px;
+}
+
+.hero-btn:hover {
+    color: white;
+    border: 1px solid #f44336;
+    background: #f44336;
+    transition: 1s;
+}
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <div class="heading"><h1>Login</h1></div>
+    <div class="contact-us">
+      <div class="contact-col">
+        <form action="/user/login" method="post">
+          <label>Email</label>
+          <input type="text" required name="email" />
+          <label>Password</label>
+          <input type="text" required name="password" />
+    
+          <button type="submit" class="hero-btn">Login</button>
+        </form>
+
+      </div>
+    </div>
+    
+</body>
+</html>

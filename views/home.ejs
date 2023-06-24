@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+.heading{
+  display: flex;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 600;
+    font-family: system-ui;
+}
+.heading p{
+    color: green;
+}
+.contact-us{
+    width: 80%;
+    margin: auto;
+}
+.contact-col{
+    flex-basis: 48%;
+    margin-bottom: 30px;
+}
+
+
+.contact-col input{
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 17px;
+    outline: none;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 14px;
+
+}
+.hero-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: rgb(225, 38, 38);
+    border: 1px solid rgb(225, 38, 38);
+    padding: 12px 34px;
+    font-size: 13px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+    border-radius: 14px;
+
+}
+
+.hero-btn:hover {
+    color: white;
+    border: 1px solid #f44336;
+    background: #f44336;
+    transition: 1s;
+}
+        
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+    <!-- -------------------------------------------------------------------------------- -->
+    <div>
+    <div class="heading">
+        <h1>Url Shortener</h1>
+    </div>
+    <div class="contact-us">
+        <div class="contact-col " class="ui-widget">
+            <form class="form-group " method="post" action="/url">
+                <label>Enter your original url</label>
+                <input  class="form-control" id="recipe" type="text" name="url" placeholder="https://sample.com">
+                <button type="submit" class="hero-btn" type="submit ">Generate</button>
+                <!-- class="btn btn-primary my-1 mx-2" -->
+            </form>
+        </div>
+    </div>   
+    <div class="heading">
+        <% if (locals.id) { %>
+            <p>Url Generated: http://localhost:8001/url/<%= id %></p>
+        <% } %>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <th>s.no</th>
+                <th>shortId</th>
+                <th>redirectUrl</th>
+                <th>clicks</th>
+            </thead>
+            <tbody>
+                
+                <% urls.forEach((url,index) => { %>
+                    <tr>
+                    <td><%= index+1 %></td>
+                    <td><%= url.shortId %></td>
+                    <td><%= url.redirectURL %></td>
+                    <td><%= url.visitHistory.length %></td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+    
+
+   
+    <script>
+        $(document).ready(function(){
+                $("#recipe").autocomplete({
+                    source: async function(request,response){
+                        let data = await fetch(`http://localhost:8001/search?term=${request.term}`)
+                        .then(results=>results.json())
+                        .then(results=>results.map(result=>{
+                            return{label: result.redirectURL, value: result.redirectURL, id: result._id}
+                        }));
+                        response(data);
+                    },
+                    minLength: 2,
+                })
+            }); 
+    </script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+</body>
+</html>
